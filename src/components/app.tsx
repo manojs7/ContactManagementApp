@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import Sidebar from './Sidebar';
 import ContactsPage from '../pages/ContactsPage';
 import DashboardPage from '../pages/DashboardPage';
+import ChartsAndMapsPage from '../pages/ChartsAndMapsPage';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
 
@@ -19,14 +20,13 @@ function App() {
           <div className="flex-grow p-4">
             <Routes>
               <Route path="/" element={<ContactsPage />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              
+              <Route path="/charts-and-maps" element={<ChartsAndMapsPage />} />
             </Routes>
           </div>
         </div>
       </Router>
-      </Provider>
-    </QueryClientProvider>
+       </Provider>
+     </QueryClientProvider>
   );
 }
 

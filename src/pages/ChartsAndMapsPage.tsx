@@ -1,5 +1,3 @@
-// src/pages/ChartsAndMapsPage.tsx
-
 import React from 'react';
 import LineGraph from '../components/LineGraph';
 import CovidMap from '../components/CovidMap';

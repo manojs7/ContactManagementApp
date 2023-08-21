@@ -1,52 +1,32 @@
-// src/components/CovidMap.tsx
-
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 const CovidMap: React.FC = () => {
-  // Fetch your data and set it here
-  const countriesData = [
-    {
-      updated: 1692559243587,
-      country: "Afghanistan",
-      countryInfo: {
-        _id: 4,
-        iso2: "AF",
-        iso3: "AFG",
-        lat: 33,
-        long: 65,
-        flag: "https://disease.sh/assets/img/flags/af.png",
-      },
-      cases: 224852,
-      todayCases: 20,
-      deaths: 7942,
-      todayDeaths: 0,
-      recovered: 204883,
-      todayRecovered: 55,
-      active: 12027,
-      critical: 0,
-      casesPerOneMillion: 5517,
-      deathsPerOneMillion: 195,
-      tests: 1292135,
-      testsPerOneMillion: 31705,
-      population: 40754388,
-      continent: "Asia",
-      oneCasePerPeople: 181,
-      oneDeathPerPeople: 5132,
-      oneTestPerPeople: 32,
-      activePerOneMillion: 295.11,
-      recoveredPerOneMillion: 5027.26,
-      criticalPerOneMillion: 0,
-    },
-  ]; // Array of country data
+  const [countriesData, setCountriesData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://disease.sh/v3/covid-19/countries');
+        const data = await response.json();
+        setCountriesData(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
-    <MapContainer
-      
-    >
+    // Use center prop
+    <MapContainer center={[0, 0]} zoom={2} style={{ height: '400px' }}>
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      {countriesData.map((country: any) => (
-        <Marker key={country.country} position={[country.lat, country.long]}>
+      {countriesData.map((country:any) => (
+        <Marker
+          key={country.countryInfo.iso2}
+          position={[country.countryInfo.lat, country.countryInfo.long]}
+        >
           <Popup>
             <div>
               <h3>{country.country}</h3>

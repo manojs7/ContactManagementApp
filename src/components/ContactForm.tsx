@@ -25,10 +25,11 @@ const ContactForm: React.FC<ContactFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const formData = { name, email };
     if (isCreating) {
-      onSubmit({ name, email });
+      onSubmit(formData);
     } else if (onSaveEdit) {
-      onSaveEdit({ name, email });
+      onSaveEdit(formData);
     }
     setName('');
     setEmail('');
